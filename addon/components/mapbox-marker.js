@@ -9,6 +9,7 @@ export default Ember.Component.extend({
   color: '#444444',
   marker: null,
   draggable: false,
+  coordinates: null,
 
   isLoaded: Ember.computed('map', 'marker', function() {
     let map = this.get('map');
@@ -27,15 +28,24 @@ export default Ember.Component.extend({
     }
   }),
 
-  iconChange: Ember.observer('color', 'size', 'symbol', function() {
+  iconDidChange: Ember.observer('color', 'size', 'symbol', function() {
     let map = this.get('map');
     let marker = this.get('marker');
-    if (typeof map !== 'undefined' && marker != null) {
+    if (typeof map !== 'undefined' && marker !== null) {
       marker.setIcon(L.mapbox.marker.icon({
         'marker-color': this.get('color'),
         'marker-size': this.get('size'),
         'marker-symbol': this.get('symbol')
       }));
+    }
+  }),
+
+  coordinatesDidChange: Ember.observer('coordinates', function() {
+    let map = this.get('map');
+    let marker = this.get('marker');
+    let newCoordinates = this.get('coordinates');
+    if (typeof map !== 'undefined' || !marker || !newCoordinates) {
+      marker.setLatLng(newCoordinates);
     }
   }),
 

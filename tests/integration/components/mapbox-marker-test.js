@@ -1,4 +1,4 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { moduleForComponent, test, skip } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 import mockMarker from 'dummy/tests/helpers/mock-marker';
@@ -15,6 +15,13 @@ moduleForComponent('mapbox-marker', 'Integration | Component | mapbox marker', {
 
     };
   }
+});
+
+skip('it updates the marker coordinates when changed', function(assert) {
+  //assert.expect(3);
+  //L.mapbox.marker([0,0]);
+
+  //this.render(hbs`{{mapbox-marker coordinates=(mapbox-coords 23.333, 45.422)}}`);
 });
 
 test('it sets the marker color size and symbol', function(assert) {
